@@ -1,0 +1,14 @@
+- Make a super awesome about page
+- Make a play/pause button
+- Make a stop button
+- Make a mute button
+- Make volume up/down buttons
+- Make a seek bar
+- Add duration text
+- Add Open... and Close menus
+- Figure out how notifications work
+- Change title bar to "[music title] - Flips Music Player"
+- Add Squirrel for packaging
+- Add Discord Rich Presence
+- Release as 1.0
+- Debugging: the classic mystery game where you are the detective, victim and murderer!

@@ -1,0 +1,15 @@
+{
+  "name": "flips",
+  "version": "0.0.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^6.1.9",
+    "minimist": "^1.2.5"
+  },
+  "dependencies": {
+    "howler": "^2.1.3"
+  }
+}
