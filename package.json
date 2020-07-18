@@ -1,15 +1,17 @@
 {
   "name": "flips",
   "version": "0.0.1",
+  "repository": "https://github.com/SamFujisaki/flips",
+  "license": "mit",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "devDependencies": {
-    "electron": "^6.1.9",
-    "minimist": "^1.2.5"
-  },
   "dependencies": {
-    "howler": "^2.1.3"
+    "howler": "^2.2.0"
+  },
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "minimist": "^1.2.5"
   }
 }
