@@ -1,17 +1,28 @@
 const howler = require('howler');
 
-var song = new Howl({
-  src: ['song.mp3', 'song.ogg']
+let song = new Howl({
+    src: ['song.ogg']
 });
 
-function playSong() {
-  song.play();
+let playing = false;
+
+function toggleSong() {
+    playing = !playing;
+    if (playing) song.play();
+    else song.pause();
 }
 
 function stopSong() {
-  song.stop();
+    playing = false;
+    song.stop();
 }
 
-function pauseSong() {
-  song.pause();
-}
+setInterval(
+    () => {
+        const progressBar = document.getElementById("songDuration");
+        const current = song.seek() * 100;
+        const duration = song.duration();
+        const percentage = current / duration;
+        progressBar.value = percentage;
+    }, 100
+);

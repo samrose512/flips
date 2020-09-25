@@ -1,13 +1,11 @@
-/* html {
-background-color: #660066;
-} */
-html {
-background-color: #A9A9A9;
+#title {
+    text-align: center;
 }
-body {
-font-family: "Roboto", sans-serif;
+
+#main {
+    text-align: center;
 }
-#mainmenu_appnametext {
-text-align: center;
-color: #7289DA;
+
+#songDuration {
+    width: 800px;
 }
