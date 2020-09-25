@@ -25,8 +25,20 @@ function loadSong() {
     if (playing) stopSong();
     song = new Howl({
         src: [src],
-        ext: ['ogg', 'mp3'],
-        html5: true
+        format: ['ogg', 'mp3'],
+        html5: true,
+        onplay: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/play-circle.svg";
+        },
+        onpause: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/pause-circle.svg";
+        },
+        onstop: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/pause-circle.svg";
+        }
     });
 }
 
@@ -36,7 +48,7 @@ setInterval(
         const progressBar = document.getElementById("songDuration");
         const current = song.seek() * 100;
         const duration = song.duration();
-        const percentage = Math.max(current / duration, 1);
-        progressBar.value = percentage;
+        const percentage = current / duration;
+        if (!isNaN(percentage)) progressBar.value = percentage;
     }, 100
 );
