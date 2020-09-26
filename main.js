@@ -1,10 +1,13 @@
 const electron = require('electron');
 const { dialog, app, Menu } = require('electron');
 
+const transparentBackground = false;
+
 function createWindow() {
     let window = new electron.BrowserWindow({
         width: 800,
         height: 600,
+        transparent: transparentBackground,
         webPreferences: {
             nodeIntegration: true
         },
@@ -83,4 +86,11 @@ function createWindow() {
     window.loadFile('index.html');
 }
 
-electron.app.on('ready', createWindow);
+if (transparentBackground) {
+    electron.app.on('ready',
+        () => setTimeout(createWindow, 250)
+    );
+}
+else {
+    electron.app.on('ready', createWindow);
+}
