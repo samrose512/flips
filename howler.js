@@ -19,10 +19,12 @@ function stopSong() {
 }
 
 function loadSong() {
-    loaded = true;
     const songFile = document.getElementById("songFile").files[0];
     const src = URL.createObjectURL(songFile);
+
+    loaded = true;
     if (playing) stopSong();
+
     song = new Howl({
         src: [src],
         format: ['ogg', 'mp3'],
@@ -42,13 +44,26 @@ function loadSong() {
     });
 }
 
+const formatTime = (time) => {
+    const minutes = parseInt(time / 60);
+    let seconds = parseInt(time - minutes * 60);
+    if (seconds < 10) seconds = "0" + seconds;
+    return (minutes + ":" + seconds);
+}
+
 setInterval(
     () => {
         if (!loaded || !playing) return;
+        const timeElement = document.getElementById("songTime");
         const progressBar = document.getElementById("songDuration");
-        const current = song.seek() * 100;
+
+        const current = song.seek();
         const duration = song.duration();
-        const percentage = current / duration;
-        if (!isNaN(percentage)) progressBar.value = percentage;
+        if (isNaN(current)) return;
+
+        const percentage = current * 100 / duration;
+        progressBar.value = percentage;
+
+        timeElement.innerHTML = formatTime(current) + " / " + formatTime(duration);
     }, 100
 );

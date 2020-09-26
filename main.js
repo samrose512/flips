@@ -20,12 +20,12 @@ function createWindow() {
                     click() {
                         //window.webContents.send('open-file');
                         dialog.showMessageBox(
-                            null, 
-                            { 
-                                type: "info", 
-                                buttons: ["OK"], 
-                                title: "Open", 
-                                message: "Open file placeholder", 
+                            null,
+                            {
+                                type: "info",
+                                buttons: ["OK"],
+                                title: "Open",
+                                message: "Open file placeholder",
                                 icon: "./Images/icon.png"
                             }
                         );
@@ -64,14 +64,14 @@ function createWindow() {
                     click() {
                         //window.webContents.send('show-about');
                         dialog.showMessageBox(
-                            null, 
-                            { 
-                                type: "info", 
-                                buttons: ["OK"], 
-                                title: "About", 
-                                message: "About program placeholder", 
+                            null,
+                            {
+                                type: "info",
+                                buttons: ["OK"],
+                                title: "About",
+                                message: "About program placeholder",
                                 icon: "./Images/icon.png"
-                            } 
+                            }
                         );
                     }
                 }

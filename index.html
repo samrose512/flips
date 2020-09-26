@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
@@ -9,17 +9,17 @@
     </head>
     <body>
         <div id="title">
-            <h1>Flips Music Player</h1>
-            <h3>Welcome!</h3>
+            <h1>Flips Music Player</h1> <br/>
         </div>
         <div id="main">
+            <code id="songTime">0:00 / 0:00</code> <br/>
             <progress id="songDuration" value="0" max="100"></progress><br/>
             <img src="./Images/pause-circle.svg" class="button-icon" onclick="toggleSong()" id="playButton"/>
             <img src="./Images/stop-circle.svg" class="button-icon" onclick="stopSong()" />
         </div>
         <hr/>
         <label for="songFile">Insert file song here: </label>
-        <input type="file" accept=".mp3,.ogg" id="songFile" value="" />
+        <input type="file" accept=".mp3,.ogg" id="songFile" value=""/>
         <button onclick="loadSong()">Load song</button>
         <script src="howler.js"></script>
     </body>
