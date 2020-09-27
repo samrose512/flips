@@ -26,6 +26,13 @@ const formatTime = (time) => {
     return (minutes + ":" + seconds);
 }
 
+window.onkeydown = (key) => {
+    const spacebar = 32;
+    if (key.keyCode == spacebar) {
+        toggleSong();
+    }
+}
+
 {
     const songInput = document.getElementById("songFile");
     songInput.addEventListener('change',
@@ -41,15 +48,15 @@ const formatTime = (time) => {
                 html5: true,
                 onplay: () => {
                     const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/play-circle.svg";
+                    playButton.src = "./Images/pause-circle.svg";
                 },
                 onpause: () => {
                     const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/pause-circle.svg";
+                    playButton.src = "./Images/play-circle.svg";
                 },
                 onstop: () => {
                     const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/pause-circle.svg";
+                    playButton.src = "./Images/play-circle.svg";
                 }
             });
 
