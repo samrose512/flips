@@ -8,7 +8,8 @@
     "start": "electron ."
   },
   "dependencies": {
-    "howler": "^2.2.0"
+    "howler": "^2.2.0",
+    "music-metadata-browser": "^2.1.4"
   },
   "devDependencies": {
     "electron": "^9.1.0",

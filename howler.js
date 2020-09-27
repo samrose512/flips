@@ -1,4 +1,5 @@
 const howler = require('howler');
+const mm = require('music-metadata-browser');
 
 let song;
 
@@ -18,37 +19,47 @@ function stopSong() {
     song.stop();
 }
 
-function loadSong() {
-    const songFile = document.getElementById("songFile").files[0];
-    const src = URL.createObjectURL(songFile);
-
-    loaded = true;
-    if (playing) stopSong();
-
-    song = new Howl({
-        src: [src],
-        format: ['ogg', 'mp3'],
-        html5: true,
-        onplay: () => {
-            const playButton = document.getElementById("playButton");
-            playButton.src = "./Images/play-circle.svg";
-        },
-        onpause: () => {
-            const playButton = document.getElementById("playButton");
-            playButton.src = "./Images/pause-circle.svg";
-        },
-        onstop: () => {
-            const playButton = document.getElementById("playButton");
-            playButton.src = "./Images/pause-circle.svg";
-        }
-    });
-}
-
 const formatTime = (time) => {
     const minutes = parseInt(time / 60);
     let seconds = parseInt(time - minutes * 60);
     if (seconds < 10) seconds = "0" + seconds;
     return (minutes + ":" + seconds);
+}
+
+{
+    const songInput = document.getElementById("songFile");
+    songInput.addEventListener('change',
+        () => {
+            const file = songInput.files[0];
+            const src = URL.createObjectURL(file);
+
+            loaded = true;
+            if (playing) stopSong();
+            song = new Howl({
+                src: [src],
+                format: ['ogg', 'mp3'],
+                html5: true,
+                onplay: () => {
+                    const playButton = document.getElementById("playButton");
+                    playButton.src = "./Images/play-circle.svg";
+                },
+                onpause: () => {
+                    const playButton = document.getElementById("playButton");
+                    playButton.src = "./Images/pause-circle.svg";
+                },
+                onstop: () => {
+                    const playButton = document.getElementById("playButton");
+                    playButton.src = "./Images/pause-circle.svg";
+                }
+            });
+
+            mm.parseBlob(file)
+                .then(metadata => {
+                    const title = `[${metadata.common.title}] - Flips Music Player`;
+                    document.title = title;
+                })
+        }
+    )
 }
 
 setInterval(
