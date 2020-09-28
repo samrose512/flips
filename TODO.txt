@@ -1,10 +1,10 @@
 - Make a super awesome about page
-- Make a play/pause button
-- Make a stop button
-- Make a mute button
+done (tarche) - Make a play/pause button
+done (tarche) - Make a stop button
+partially done (sam) - Make a mute button
 - Make volume up/down buttons
-- Make a seek bar
-- Add duration text
+partially done (tarche) - Make a seek bar
+done (tarche) - Add duration text
 - Add Open... and Close menus
 - Figure out how notifications work
 - Change title bar to "[music title] - Flips Music Player"

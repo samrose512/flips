@@ -4,12 +4,24 @@ let song;
 
 let loaded = false;
 let playing = false;
+let muted = false;
 
 function toggleSong() {
     if (!loaded) return;
     playing = !playing;
     if (playing) song.play();
     else song.pause();
+}
+
+function toggleMute() {
+    if (!muted) {
+        howler.Howler.mute(true);
+        muted = true;
+    }
+    else {
+        howler.Howler.mute(false);
+        muted = false;
+    }
 }
 
 function stopSong() {
