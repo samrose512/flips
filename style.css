@@ -10,6 +10,18 @@
     width: 80%;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.fileInputLabel {
+    border-radius: 100px;
+    padding: 0.3em;
+    margin: 0.2em;
+    background-color: var(--button-color);
+    cursor: pointer;
+}
+
 .button-icon {
     width: 50px;
     height: 50px;

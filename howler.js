@@ -1,7 +1,8 @@
 const howler = require('howler');
-const mm = require('music-metadata-browser');
+const mm = require('music-metadata');
 
 let song;
+let songQueue = [];
 
 let loaded = false;
 let playing = false;
@@ -45,40 +46,72 @@ window.onkeydown = (key) => {
     }
 }
 
+const changeSong = (file) => {
+    const src = file.path;
+
+    song = new Howl({
+        src: [src],
+        format: ['ogg', 'mp3'],
+        html5: true,
+        onplay: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/pause-circle.svg";
+        },
+        onpause: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/play-circle.svg";
+        },
+        onstop: () => {
+            const playButton = document.getElementById("playButton");
+            playButton.src = "./Images/play-circle.svg";
+        },
+        onend: () => {
+            songQueue.shift();
+            const next = songQueue[0];
+            changeSong(next);
+        }
+    });
+
+    mm.parseFile(src).then(metadata => {
+        const title = `[${metadata.common.title}] - Flips Music Player`;
+        document.title = title;
+    });
+
+    playing = true;
+    song.play();
+}
+
+const showQueue = async () => {
+    const listElement = document.getElementById("playlist");
+    let list = "";
+
+    await songQueue.reduce(async (memo, item) => {
+        await memo;
+        await mm.parseFile(item.path).then(metadata => {
+            list += `<li>${metadata.common.title} - ${metadata.common.artist}</li>`;
+        });
+        listElement.innerHTML = list;
+    }, undefined);
+}
+
+const loadFile = (event) => {
+    songQueue = Array.from(event.target.files).filter(
+        file => file.type == "audio/ogg" || file.type == "audio/mp3"
+    );
+
+    loaded = true;
+    if (playing) stopSong();
+
+    changeSong(songQueue[0]);
+
+    if (songQueue.length > 1) showQueue();
+}
+
 {
     const songInput = document.getElementById("songFile");
-    songInput.addEventListener('change',
-        () => {
-            const file = songInput.files[0];
-            const src = URL.createObjectURL(file);
-
-            loaded = true;
-            if (playing) stopSong();
-            song = new Howl({
-                src: [src],
-                format: ['ogg', 'mp3'],
-                html5: true,
-                onplay: () => {
-                    const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/pause-circle.svg";
-                },
-                onpause: () => {
-                    const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/play-circle.svg";
-                },
-                onstop: () => {
-                    const playButton = document.getElementById("playButton");
-                    playButton.src = "./Images/play-circle.svg";
-                }
-            });
-
-            mm.parseBlob(file)
-                .then(metadata => {
-                    const title = `[${metadata.common.title}] - Flips Music Player`;
-                    document.title = title;
-                })
-        }
-    )
+    const playlistInput = document.getElementById("playlistFile");
+    songInput.addEventListener('change', loadFile);
+    playlistInput.addEventListener('change', loadFile);
 }
 
 setInterval(
