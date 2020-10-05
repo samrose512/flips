@@ -21,8 +21,15 @@
             <img src="./Images/vol-down.svg" class="button-icon" onclick="volumeDown()" />
         </div>
         <hr/>
-        <label for="songFile">Insert file song here: </label>
-        <input type="file" accept=".mp3,.ogg" id="songFile" value=""/>
+        <label for="playlistFile" class="fileInputLabel"> Load playlist
+            <input type="file" id="playlistFile" webkitdirectory directory multiple/>
+        </label>
+        <label for="songFile" class="fileInputLabel"> Load single song
+            <input type="file" accept=".mp3,.ogg" id="songFile" />
+        </label>
+        <ol id="playlist">
+
+        </ol>
         <script src="howler.js"></script>
     </body>
 </html>
