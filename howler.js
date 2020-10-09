@@ -7,6 +7,7 @@ let songQueue = [];
 let loaded = false;
 let playing = false;
 let muted = false;
+let volume = 1;
 
 function toggleSong() {
     if (!loaded) return;
@@ -30,6 +31,19 @@ function stopSong() {
     if (!loaded) return;
     playing = false;
     song.stop();
+}
+
+function volumeUp() {
+    if (volume <= 0.95) {
+        volume = howler.Howler.volume((volume+0.05));
+    }
+}
+
+function volumeDown() {
+    if (volume >= 0)
+    {
+        volume = howler.Howler.volume((volume-0.05));
+    }
 }
 
 const formatTime = (time) => {
