@@ -34,16 +34,13 @@ function stopSong() {
 }
 
 function volumeUp() {
-    if (volume <= 0.95) {
-        volume = howler.Howler.volume((volume+0.05));
-    }
+    volume = Math.min(volume + 0.05, 1);
+    song.volume(volume);
 }
 
 function volumeDown() {
-    if (volume >= 0)
-    {
-        volume = howler.Howler.volume((volume-0.05));
-    }
+    volume = Math.max(volume - 0.05, 0);
+    song.volume(volume);
 }
 
 const formatTime = (time) => {

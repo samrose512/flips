@@ -4,7 +4,7 @@
 - [x] Make a play/pause button
 - [x] Make a stop button
 - [x] Make a mute button
-- [ ] Make volume up/down buttons
+- [x] Make volume up/down buttons
 - [ ] Make a seek bar
 - [x] Add duration text
 - [ ] Add Open... and Close menus
