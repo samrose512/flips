@@ -34,16 +34,13 @@ function stopSong() {
 }
 
 function volumeUp() {
-    if (volume <= 0.95) {
-        volume = howler.Howler.volume((volume+0.05));
-    }
+    volume = Math.min(volume + 0.05, 1);
+    song.volume(volume);
 }
 
 function volumeDown() {
-    if (volume >= 0)
-    {
-        volume = howler.Howler.volume((volume-0.05));
-    }
+    volume = Math.max(volume - 0.05, 0);
+    song.volume(volume);
 }
 
 const formatTime = (time) => {
@@ -63,6 +60,8 @@ window.onkeydown = (key) => {
 const changeSong = (file) => {
     const src = file.path;
 
+    changeTitle(src);
+
     song = new Howl({
         src: [src],
         format: ['ogg', 'mp3'],
@@ -81,18 +80,25 @@ const changeSong = (file) => {
         },
         onend: () => {
             songQueue.shift();
+            if (songQueue.length == 0) {
+                changeTitle();
+                return;
+            }
             const next = songQueue[0];
             changeSong(next);
         }
     });
 
-    mm.parseFile(src).then(metadata => {
-        const title = `[${metadata.common.title}] - Flips Music Player`;
-        document.title = title;
-    });
-
     playing = true;
     song.play();
+}
+
+const changeTitle = (src = '') => {
+    if (src == '') document.title = "Flips Music Player";
+    else mm.parseFile(src).then(metadata => {
+        document.title = `[${metadata.common.title}] - flips`;
+        console.log(metadata.common.title);
+    });
 }
 
 const showQueue = async () => {
@@ -108,10 +114,17 @@ const showQueue = async () => {
     }, undefined);
 }
 
+const clearQueue = () => {
+    document.getElementById("playlist").innerHTML = "";
+}
+
 const loadFile = (event) => {
     songQueue = Array.from(event.target.files).filter(
-        file => file.type == "audio/ogg" || file.type == "audio/mp3"
+        file => file.type.startsWith("audio")
     );
+    if (songQueue.length == 0) return;
+
+    songQueue.sort((a, b) => a.name.localeCompare(b.name));
 
     loaded = true;
     if (playing) stopSong();
@@ -119,6 +132,7 @@ const loadFile = (event) => {
     changeSong(songQueue[0]);
 
     if (songQueue.length > 1) showQueue();
+    else clearQueue();
 }
 
 {

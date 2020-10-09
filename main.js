@@ -1,7 +1,9 @@
 const electron = require('electron');
 const { dialog, app, Menu } = require('electron');
+const path = require('path');
 
 const transparentBackground = false;
+const iconPath = path.resolve(__dirname, 'Images', 'icon.png');
 
 function createWindow() {
     let window = new electron.BrowserWindow({
@@ -11,7 +13,7 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true
         },
-        icon: './Images/icon.png'
+        icon: iconPath
     });
 
     let menu = Menu.buildFromTemplate([
@@ -29,7 +31,7 @@ function createWindow() {
                                 buttons: ["OK"],
                                 title: "Open",
                                 message: "Open file placeholder",
-                                icon: "./Images/icon.png"
+                                icon: iconPath
                             }
                         );
                     }
@@ -73,7 +75,7 @@ function createWindow() {
                                 buttons: ["OK"],
                                 title: "About",
                                 message: "About program placeholder",
-                                icon: "./Images/icon.png"
+                                icon: iconPath
                             }
                         );
                     }
